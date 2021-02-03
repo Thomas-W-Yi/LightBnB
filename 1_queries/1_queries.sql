@@ -19,10 +19,11 @@
 -- group by city
 -- order by total_reservations desc;
 
-select property_id as id, title, cost_per_night, start_date, avg(rating) as average_rating
+select property_reviews.property_id as id, title, cost_per_night, start_date, avg(rating) as average_rating
 from property_reviews 
 join reservations on reservations.id  = property_reviews.reservation_id
 join properties on properties.id = property_reviews.property_id
 where end_date < now()::date
-group by property_id
+group by property_reviews.property_id,title, cost_per_night, start_date
 order by start_date
+limit 10
